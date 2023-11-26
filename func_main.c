@@ -5,7 +5,8 @@
 int main() {
     setlocale(LC_ALL, "Portuguese");
     int opcoes;
-    usuarios user[MAX_USUARIOS]; // Cria um array de estruturas usuarios
+    usuarios user[MAX_USUARIOS];
+    int indice;
 
     do {
         printf("Ola, bem vindo ao nosso sistema bancário.\n");
@@ -20,21 +21,38 @@ int main() {
         printf("8 : sair\n");
 
         scanf("%d", &opcoes);
+        getchar(); // Limpa o buffer de entrada
         switch (opcoes) {
             case 1:
                 for(int i = 0; i < MAX_USUARIOS; i++) {
-                    printf("\nCriando conta para o usuário %d\n", i+1);
+                    printf("\nCriando conta para o usuário: %d\n", i+1);
                     criaConta(&user[i]);
                 }
                 break;
+
             case 2:
-                for(int i = 0; i < MAX_USUARIOS; i++) {
-                    printf("\nDepositando valor para o usuário %d\n", i+1);
-                    depositaValor(&user[i]);
+                printf("Digite o índice do usuário que você deseja depositar: ");
+                scanf("%d", &indice);
+                if (indice >= 0 && indice < MAX_USUARIOS) {
+                    depositaValor(&user[indice]);
+                } else {
+                    printf("Índice de usuário inválido.\n");
                 }
                 break;
+
             case 3:
                 printf("saindo da aplicacao");
+                break;
+
+            case 7:
+                printf("Digite o índice do titular da conta que você deseja editar: ");
+                scanf("%d", &indice);
+                getchar(); // Limpa o buffer de entrada
+                if (indice >= 0 && indice < MAX_USUARIOS) {
+                    editarInformacoes(&user[indice], indice);
+                } else {
+                    printf("Índice de usuário inválido.\n");
+                }
                 break;
             default:
                 break;
