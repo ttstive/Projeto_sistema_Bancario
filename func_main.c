@@ -30,7 +30,7 @@ int main() {
                 }
                 break;
 
-            case 2:
+            case 2: 
                 printf("Digite o índice do usuário que você deseja depositar: ");
                 scanf("%d", &indice);
                 if (indice >= 0 && indice < MAX_USUARIOS) {
@@ -39,7 +39,7 @@ int main() {
                     printf("Índice de usuário inválido.\n");
                 }
                 break;
-                
+
             case 3:
                 printf("Digite o índice do usuário que você deseja sacar");
                 scanf("%d", &indice);
@@ -50,13 +50,8 @@ int main() {
                     printf("índice de usuário inválido.\n");
                 }
                 break;
-                
 
-            case 4:
-                printf("saindo da aplicacao");
-                break;
-
-           case 7:
+            case 7:
                 printf("Digite o índice do titular da conta que você deseja editar: ");
                 scanf("%d", &indice);
                 getchar(); // Limpa o buffer de entrada
