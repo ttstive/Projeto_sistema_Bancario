@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 
-#define MAX_USUARIOS 1
+#define MAX_USUARIOS 3
 
 typedef struct {
     char nome[30];
@@ -15,12 +15,13 @@ typedef struct {
 } usuarios;
 
 long long gerarNumeroConta(long long cpf, int idade) {
-  
-    return cpf + idade;
+    srand(time(NULL));
+    int random = rand();
+    return cpf * 10000 + idade * 1000 + random % 1000;
 }
 
 void criaConta(usuarios* user) {
-    FILE *fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -50,7 +51,6 @@ else{
     fprintf(fp, "Nome: %s, Idade: %d, CPF: %lld, Numero da Conta: %lld, Saldo: %.2f\n", user->nome, user->idade, user->cpf, user->numeroConta, user->saldo);
     fclose(fp);
 }
-// deposita o valor
 
 void depositaValor(usuarios* user) {
     float deposito;
@@ -61,7 +61,7 @@ void depositaValor(usuarios* user) {
     printf("Seu saldo atual é: R$ %.2f\n", user->saldo);
     
 
-    FILE *fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -86,7 +86,7 @@ void sacaValor(usuarios* user){
         printf("Seu saldo atual é: R$ %.2f\n", user->saldo);
     }
     
-    FILE *fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -95,7 +95,6 @@ void sacaValor(usuarios* user){
     fprintf(fp, "Nome :%s , Saque: %.2f, Saldo: %.2f, Conta: %lld \n", user->nome, saque, user->saldo, user->numeroConta);
     fclose(fp);
 }
-
 
 void editarInformacoes(usuarios* user, int indice) {
     printf("Digite o novo nome do titular: ");
@@ -110,15 +109,15 @@ void editarInformacoes(usuarios* user, int indice) {
 
     printf("Informações do titular da conta atualizadas com sucesso!\n");
 
-    FILE *fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "r+");
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "r+");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
     }
 
-    char **linhas = malloc(MAX_USUARIOS *sizeof(char * ));
+    char **linhas = malloc(MAX_USUARIOS * sizeof(char *));
     for(int i = 0; i < MAX_USUARIOS; i++) {
-        linhas[i] = malloc(100 *sizeof(char));
+        linhas[i] = malloc(100 * sizeof(char));
     }
 
     int i = 0;
@@ -127,7 +126,7 @@ void editarInformacoes(usuarios* user, int indice) {
     }
     fclose(fp);
 
-    fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "w");
+    fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "w");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
