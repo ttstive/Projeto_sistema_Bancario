@@ -34,7 +34,7 @@ if (user->idade < 17)
 }
 else{
 
-
+    
     printf("Insira seu nome: ");
     scanf(" %s", user->nome);
     printf("Digite sua idade: ");
@@ -146,3 +146,48 @@ void editarInformacoes(usuarios* user, int indice) {
     }
     free(linhas);
 }
+
+void Tranferencia1(usuarios* user, int indice){
+    float transfere;
+
+    printf("Informe o valor: ");
+    scanf("%f", &transfere);
+    if (user->saldo < transfere)
+    {
+        printf("Seu saldo não é suficiente.\n");
+        return;
+    }
+    else {
+        user->saldo = user->saldo - transfere;
+
+        printf("informe o destinatario: ");
+        scanf("%d", &indice);
+        if (indice>=0 && indice <MAX_USUARIOS)
+        {
+            user->saldo = user->saldo + transfere;
+            printf("Tranferencia de R$ %.2f realizada com sucesso\n", transfere);
+        }
+        else{
+            do
+            {
+            printf("destinatario invalido.\n");
+            
+            printf("informe o destinatario: ");
+            scanf("%d", &indice);
+
+            } while (indice<0 || indice >MAX_USUARIOS);
+
+        if (indice>=0 && indice <MAX_USUARIOS)
+            {
+                user->saldo = user->saldo + transfere;
+                printf("Tranferenncia de R$ %.2f realizada com sucesso.\n", transfere);
+            }    
+            
+            
+
+        }
+        
+    }
+
+}
+
