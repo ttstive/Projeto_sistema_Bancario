@@ -51,6 +51,21 @@ int main() {
                 }
                 break;
 
+            case 4:
+                printf("digite o índice da conta rementente");
+                scanf("%d", &indice);
+                if (indice<0 || indice >MAX_USUARIOS)
+                {
+                    printf("indíce usuário invalido\n");                    
+                }
+                else if (indice>=0 && indice <MAX_USUARIOS)
+                {
+                    Tranferencia1(&user[indice], indice);
+
+                }
+                               
+                break;
+
             case 7:
                 printf("Digite o índice do titular da conta que você deseja editar: ");
                 scanf("%d", &indice);
