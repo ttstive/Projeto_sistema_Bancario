@@ -63,6 +63,16 @@ int main() {
                     Transferencia1(&user[indice], user, totalUsers);
                 }
                 break;
+            case 5:
+                printf("Digite o índice do usuário que você deseja ver o extrato: ");
+                scanf("%d", &indice);
+                if (indice >=0 && indice < MAX_USUARIOS)
+                {
+                    extrato(&user[indice]);
+                } else{
+                    printf("índice de usuário inválido.\n");
+                }
+                break;
 
             case 6:
                 printf("Digite o índice do usuário cuja conta você deseja remover: ");

@@ -20,7 +20,7 @@ long long gerarNumeroConta(long long cpf, int idade) {
 
 
 void criaConta(usuarios* user) {
-    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/user/OneDrive/Área de Trabalho/programção/faculdade-1/Programaçao em C/Projeto_sistema_Bancario/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -60,7 +60,7 @@ void depositaValor(usuarios* user) {
     printf("Seu saldo atual é: R$ %.2f\n", user->saldo);
     
 
-    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/user/OneDrive/Área de Trabalho/programção/faculdade-1/Programaçao em C/Projeto_sistema_Bancario/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -85,7 +85,7 @@ void sacaValor(usuarios* user){
         printf("Seu saldo atual é: R$ %.2f\n", user->saldo);
     }
     
-    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/user/OneDrive/Área de Trabalho/programção/faculdade-1/Programaçao em C/Projeto_sistema_Bancario/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -109,7 +109,7 @@ void editarInformacoes(usuarios* user, int indice) {
 
     printf("Informações do titular da conta atualizadas com sucesso!\n");
 
-    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "r+");
+    FILE *fp = fopen("C:/Users/user/OneDrive/Área de Trabalho/programção/faculdade-1/Programaçao em C/Projeto_sistema_Bancario/contas.txt", "r+");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -126,7 +126,7 @@ void editarInformacoes(usuarios* user, int indice) {
     }
     fclose(fp);
 
-    fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "w");
+    fp = fopen("C:/Users/user/OneDrive/Área de Trabalho/programção/faculdade-1/Programaçao em C/Projeto_sistema_Bancario/contas.txt", "w");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -182,7 +182,7 @@ void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers) {
     printf("Transferência de R$ %.2f realizada com sucesso para %s.\n", transfere, allUsers[destinatario_index].nome);
 
     // Save transaction details to file
-    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/user/OneDrive/Área de Trabalho/programção/faculdade-1/Programaçao em C/Projeto_sistema_Bancario/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -193,7 +193,7 @@ void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers) {
 }
 
 void removeConta(usuarios* user, int indice) {
-    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "r");
+    FILE *fp = fopen("C:/Users/user/OneDrive/Área de Trabalho/programção/faculdade-1/Programaçao em C/Projeto_sistema_Bancario/contas.txt", "r");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -210,7 +210,7 @@ void removeConta(usuarios* user, int indice) {
     }
     fclose(fp);
 
-    fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "w");
+    fp = fopen("C:/Users/user/OneDrive/Área de Trabalho/programção/faculdade-1/Programaçao em C/Projeto_sistema_Bancario/contas.txt", "w");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -232,4 +232,13 @@ void removeConta(usuarios* user, int indice) {
     user[indice] = vazio;
 
     printf("Conta removida com sucesso!\n");
+}
+
+void extrato(usuarios* user){
+    printf("Número da Conta: %lld\n", user->numeroConta);
+    printf("Nome do Titular: %s\n", user->nome);
+    printf("Idade: %d\n", user->idade);
+    printf("Cpf: %lld\n", user->cpf);
+    printf("Saldo Atual: R$ %.2f\n", user->saldo);
+    return;
 }
