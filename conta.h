@@ -186,7 +186,9 @@ void Tranferencia1(usuarios* user, int indice){
             
 
         }
-    void removeConta(usuarios* user, int indice) {
+   } 
+}
+    void removeConta(usuarios* user, int indice){
         FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "r");
         if (fp == NULL) {
             printf("Erro ao abrir o arquivo.\n");
@@ -227,8 +229,4 @@ void Tranferencia1(usuarios* user, int indice){
 
         printf("Conta removida com sucesso!\n");
         }
-
-        }
-
-}
 
