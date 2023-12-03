@@ -186,8 +186,49 @@ void Tranferencia1(usuarios* user, int indice){
             
 
         }
-        
-    }
+    void removeConta(usuarios* user, int indice) {
+        FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "r");
+        if (fp == NULL) {
+            printf("Erro ao abrir o arquivo.\n");
+            return;
+        }
+
+        char **linhas = malloc(MAX_USUARIOS * sizeof(char *));
+        for(int i = 0; i < MAX_USUARIOS; i++) {
+            linhas[i] = malloc(100 * sizeof(char));
+        }
+
+        int i = 0;
+        while (fgets(linhas[i], 100, fp) != NULL && i < MAX_USUARIOS) {
+            i++;
+        }
+        fclose(fp);
+
+        fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "w");
+        if (fp == NULL) {
+            printf("Erro ao abrir o arquivo.\n");
+            return;
+        }
+
+        for (int j = 0; j < MAX_USUARIOS; j++) {
+            if (j != indice) {
+                fprintf(fp, "%s", linhas[j]);
+            }
+        }
+        fclose(fp);
+
+        for(int i = 0; i < MAX_USUARIOS; i++) {
+            free(linhas[i]);
+        }
+        free(linhas);
+
+        usuarios vazio = {"", 0, 0, 0, 0};
+        user[indice] = vazio;
+
+        printf("Conta removida com sucesso!\n");
+        }
+
+        }
 
 }
 
