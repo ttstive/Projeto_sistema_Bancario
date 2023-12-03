@@ -20,28 +20,27 @@ long long gerarNumeroConta(long long cpf, int idade) {
 
 
 void criaConta(usuarios* user) {
-    FILE *fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
     }
-if (user->idade < 17)
-{
-    printf("voce não tem permissão para cria conta remotamente, por favor ,vá em uma de nossas agências acompanhado de seu responsável e você será atendido ");
-   
-   return;
-}
-else{
-
 
     printf("Insira seu nome: ");
     scanf(" %s", user->nome);
+
     printf("Digite sua idade: ");
     scanf("%d", &(user->idade));
+
+    if (user->idade < 17 || user->idade > 100) {
+        printf("Você não tem permissão para criar uma conta remotamente. Por favor, vá em uma de nossas agências acompanhado de seu responsável e você será atendido.\n");
+        fclose(fp);
+        return;
+    }
+
     printf("Digite seu cpf: ");
     scanf("%lld", &(user->cpf));
     user->saldo = 0;
-}
 
     user->numeroConta = gerarNumeroConta(user->cpf, user->idade);
     printf("Sua conta foi criada, guarde seu número.\n");
@@ -61,7 +60,7 @@ void depositaValor(usuarios* user) {
     printf("Seu saldo atual é: R$ %.2f\n", user->saldo);
     
 
-    FILE *fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -86,7 +85,7 @@ void sacaValor(usuarios* user){
         printf("Seu saldo atual é: R$ %.2f\n", user->saldo);
     }
     
-    FILE *fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -110,7 +109,7 @@ void editarInformacoes(usuarios* user, int indice) {
 
     printf("Informações do titular da conta atualizadas com sucesso!\n");
 
-    FILE *fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "r+");
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "r+");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -127,7 +126,7 @@ void editarInformacoes(usuarios* user, int indice) {
     }
     fclose(fp);
 
-    fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "w");
+    fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "w");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -147,7 +146,8 @@ void editarInformacoes(usuarios* user, int indice) {
     }
     free(linhas);
 }
-void Tranferencia1(usuarios* user, usuarios* allUsers, int totalUsers) {
+
+void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers) {
     float transfere;
     long long num_conta_destino;
 
@@ -182,7 +182,7 @@ void Tranferencia1(usuarios* user, usuarios* allUsers, int totalUsers) {
     printf("Transferência de R$ %.2f realizada com sucesso para %s.\n", transfere, allUsers[destinatario_index].nome);
 
     // Save transaction details to file
-    FILE *fp = fopen("/home/estevaolins/Documentos/SIstema Bancario em C/contas.txt", "a");
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -190,4 +190,46 @@ void Tranferencia1(usuarios* user, usuarios* allUsers, int totalUsers) {
 
     fprintf(fp, "Nome: %s, Transferência: %.2f, Conta Origem: %lld, Conta Destino: %lld\n", user->nome, transfere, user->numeroConta, num_conta_destino);
     fclose(fp);
+}
+
+void removeConta(usuarios* user, int indice) {
+    FILE *fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "r");
+    if (fp == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    char **linhas = malloc(MAX_USUARIOS * sizeof(char *));
+    for(int i = 0; i < MAX_USUARIOS; i++) {
+        linhas[i] = malloc(100 * sizeof(char));
+    }
+
+    int i = 0;
+    while (fgets(linhas[i], 100, fp) != NULL && i < MAX_USUARIOS) {
+        i++;
+    }
+    fclose(fp);
+
+    fp = fopen("C:/Users/User/Documents/.vscode/C/contas.txt", "w");
+    if (fp == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    for (int j = 0; j < MAX_USUARIOS; j++) {
+        if (j != indice) {
+            fprintf(fp, "Nome: %s, Idade: %d, CPF: %lld, Numero da Conta: %lld, Saldo: %.2f\n", user[j].nome, user[j].idade, user[j].cpf, user[j].numeroConta, user[j].saldo);
+        }
+    }
+    fclose(fp);
+
+    for(int i = 0; i < MAX_USUARIOS; i++) {
+        free(linhas[i]);
+    }
+    free(linhas);
+
+    usuarios vazio = {"", 0, 0, 0, 0};
+    user[indice] = vazio;
+
+    printf("Conta removida com sucesso!\n");
 }
