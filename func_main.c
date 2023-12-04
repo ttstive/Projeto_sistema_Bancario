@@ -32,36 +32,22 @@ int main() {
                 break;
 
             case 2:
-                printf("Digite o índice do usuário que você deseja depositar: ");
-                scanf("%d", &indice);
-                if (indice >= 0 && indice < MAX_USUARIOS) {
-                    depositaValor(&user[indice]);
-                } else {
-                    printf("Índice de usuário inválido.\n");
-                }
+            
+                depositaValor(&user[indice], user, totalUsers);
+
                 break;
                 
             case 3:
-                printf("Digite o índice do usuário que você deseja sacar");
-                scanf("%d", &indice);
-                if (indice >=0 && indice < MAX_USUARIOS)
-                {
-                     sacaValor(&user[indice]);
-                } else{
-                    printf("índice de usuário inválido.\n");
-                }
+                
+                sacaValor(&user[indice], user, totalUsers);
+
                 break;
                 
 
             case 4:
-                 printf("Digite o índice da conta remetente: ");
-                int indice;
-                scanf("%d", &indice);
-                if (indice < 0 || indice >= totalUsers) {
-                    printf("Índice de usuário inválido\n");
-                } else {
-                    Transferencia1(&user[indice], user, totalUsers);
-                }
+
+                Transferencia1(&user[indice], user, totalUsers);
+
                 break;
             case 5:
                 printf("Digite o índice do usuário que você deseja ver o extrato: ");
