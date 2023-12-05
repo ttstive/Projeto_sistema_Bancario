@@ -20,7 +20,7 @@ long long gerarNumeroConta(long long cpf, int idade) {
 
 
 void criaConta(usuarios* user) {
-    FILE *fp = fopen("C:/Users/Matheus/Documents/atv3/contas.txt", "a");
+    FILE *fp = fopen("contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -83,7 +83,7 @@ void depositaValor(usuarios* user, usuarios* allUsers, int totalUsers) {
     printf("Seu saldo atual é: R$ %.2f\n", user->saldo);
 
 
-    FILE *fp = fopen("C:/Users/Matheus/Documents/atv3/contas.txt", "a");
+    FILE *fp = fopen("contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -128,7 +128,7 @@ void sacaValor(usuarios* user, usuarios* allUsers, int totalUsers){
     printf("Seu saldo atual é: R$ %.2f\n", user->saldo);
 
     
-    FILE *fp = fopen("C:/Users/Matheus/Documents/atv3/contas.txt", "a");
+    FILE *fp = fopen("contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -139,20 +139,39 @@ void sacaValor(usuarios* user, usuarios* allUsers, int totalUsers){
 }
 
 
-void editarInformacoes(usuarios* user, int indice) {
+void editarInformacoes(usuarios* user, usuarios* allUsers, int totalUsers) {
+    long long num_conta_edita;
+    printf("Informe o número da conta: ");
+    scanf("%lld", &num_conta_edita);
+
+    int edita_index = -1;
+
+    for (int i = 0; i < totalUsers; i++) {
+        if (allUsers[i].numeroConta == num_conta_edita) {
+            edita_index = i;
+            break;
+        }
+    }
+
+    if (edita_index == -1) {
+        printf("Conta não encontrada.\n");
+        return;
+    }
+
     printf("Digite o novo nome do titular: ");
-    scanf(" %[^\n]", user->nome);  // Use scanf para ler até a nova linha
-    getchar();  // Limpar o caractere de nova linha do buffer
+    scanf(" %[^\n]", allUsers[edita_index].nome);  // Use scanf para ler até a nova linha
+    getchar();  // Limpar o caractere de nova linha
 
     printf("Digite a nova idade: ");
-    scanf("%d", &(user->idade));
+    scanf("%d", &(allUsers[edita_index].idade));
 
     printf("Digite o novo CPF: ");
-    scanf("%lld", &(user->cpf));
+    scanf("%lld", &(allUsers[edita_index].cpf));
 
     printf("Informações do titular da conta atualizadas com sucesso!\n");
 
-    FILE *fp = fopen("C:/Users/Matheus/Documents/atv3/contas.txt", "r+");
+    // Restante do código para atualizar o arquivo...
+    FILE *fp = fopen("contas.txt", "r+");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -169,15 +188,15 @@ void editarInformacoes(usuarios* user, int indice) {
     }
     fclose(fp);
 
-    fp = fopen("C:/Users/Matheus/Documents/atv3/contas.txt", "w");
+    fp = fopen("contas.txt", "w");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
     }
 
     for (int j = 0; j < MAX_USUARIOS; j++) {
-        if (j == indice) {
-            fprintf(fp, "Nome: %s, Idade: %d, CPF: %lld, Numero da Conta: %lld, Saldo: %.2f\n", user->nome, user->idade, user->cpf, user->numeroConta, user->saldo);
+        if (j == edita_index) {
+            fprintf(fp, "Nome: %s, Idade: %d, CPF: %lld, Numero da Conta: %lld, Saldo: %.2f\n", allUsers[edita_index].nome, allUsers[edita_index].idade, allUsers[edita_index].cpf, allUsers[edita_index].numeroConta, allUsers[edita_index].saldo);
         } else {
             fprintf(fp, "%s", linhas[j]);
         }
@@ -245,7 +264,7 @@ void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers) {
     printf("Transferência de R$ %.2f realizada com sucesso para %s.\n", transfere, allUsers[destinatario_index].nome);
 
     // Save transaction details to file
-    FILE *fp = fopen("C:/Users/Matheus/Documents/atv3/contas.txt", "a");
+    FILE *fp = fopen("contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -256,7 +275,7 @@ void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers) {
 }
 
 void removeConta(usuarios* user, int indice) {
-    FILE *fp = fopen("C:/Users/Matheus/Documents/atv3/contas.txt", "r");
+    FILE *fp = fopen("contas.txt", "r");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
@@ -273,7 +292,7 @@ void removeConta(usuarios* user, int indice) {
     }
     fclose(fp);
 
-    fp = fopen("C:/Users/Matheus/Documents/atv3/contas.txt", "w");
+    fp = fopen("contas.txt", "w");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
