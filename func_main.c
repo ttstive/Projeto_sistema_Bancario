@@ -7,7 +7,7 @@ int main() {
     int opcoes;
     usuarios user[MAX_USUARIOS];
     int indice;
-    int totalUsers = 3;
+    int totalUsers = 0;
 
     do {
         printf("Ola, bem vindo ao nosso sistema bancário.\n");
@@ -49,6 +49,7 @@ int main() {
                 Transferencia1(&user[indice], user, totalUsers);
 
                 break;
+
             case 5:
                 printf("Digite o índice do usuário que você deseja ver o extrato: ");
                 scanf("%d", &indice);
@@ -71,16 +72,12 @@ int main() {
                 }
                 break;
 
-           case 7:
-                printf("Digite o índice do titular da conta que você deseja editar: ");
-                scanf("%d", &indice);
-                getchar(); // Limpa o buffer de entrada
-                if (indice >= 0 && indice < MAX_USUARIOS) {
-                    editarInformacoes(&user[indice], indice);
-                } else {
-                    printf("Índice de usuário inválido.\n");
-                }
+            case 7:
+
+                editarInformacoes(user, user, totalUsers);
+
                 break;
+
             default:
                 break;
         }
