@@ -1,2 +1,5 @@
-trocar deposito e saque para numero da Conta
-utilizar um validador de cpf e trocar todos os inputs para numero conta 
+trocar deposito e saque para numero da Conta <correct>
+utilizar um validador de cpf e trocar todos os inputs para numero conta <coorect>
+
+add >
+consertar a função editar, ela é a unica que falta <>
