@@ -62,18 +62,16 @@ int main() {
                 break;
 
             case 5:
-             extrato(&user[indice], totalUsers);
-        break;
+             
+               extrato(&user[indice], totalUsers);
+
+               break;
 
             case 6:
-                long long int num_conta_remover;
-                printf("Digite o número da conta que deseja remover: ");
-                scanf("%lld", &num_conta_remover);
-                getchar(); 
-
-                removeConta(user, num_conta_remover);
-
-                break;
+            
+               removeConta(user);
+            
+               break;
 
             case 7:
 
