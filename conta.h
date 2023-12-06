@@ -406,7 +406,12 @@ void removeConta(usuarios* user) {
     printf("Conta removida com sucesso!\n");
 }
 
-void extrato(usuarios* allUsers, int totalUsers) {
+void extrato(usuarios* user, usuarios* allUsers, int totalUsers){
+    if (user == NULL) {
+        printf("Usuário inválido.\n");
+        return;
+    }
+
     int user_index = -1;
     long long int num_conta_extrato;
     printf("informe o numero da conta: ");
@@ -421,12 +426,12 @@ void extrato(usuarios* allUsers, int totalUsers) {
     if (user_index == -1) {
         printf("Conta não encontrada.\n");
         return;
-    } else {
-        usuarios* user = &allUsers[user_index];
-        printf("Número da Conta: %lld\n", user->numeroConta);
-        printf("Nome do Titular: %s\n", user->nome);
-        printf("Idade: %d\n", user->idade);
-        printf("Cpf: %s\n", user->cpf);
-        printf("Saldo Atual: R$ %.2f\n", user->saldo);
     }
+
+    printf("Número da Conta: %lld\n", allUsers[user_index].numeroConta);
+    printf("Nome do Titular: %s\n", allUsers[user_index].nome);
+    printf("Idade: %d\n", allUsers[user_index].idade);
+    printf("Cpf: %s\n", allUsers[user_index].cpf);
+    printf("Saldo Atual: R$ %.2f\n", allUsers[user_index].saldo);
+    return;
 }
