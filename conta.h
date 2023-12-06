@@ -345,7 +345,21 @@ void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers){
     fclose(fp);
 }
 
-void removeConta(usuarios* user, int indice) {
+void removeConta(usuarios* user, long long int numeroConta) {
+    int indice = -1;
+
+    for (int i = 0; i < MAX_USUARIOS; i++) {
+        if (user[i].numeroConta == numeroConta) {
+            indice = i;
+            break;
+        }
+    }
+
+    if (indice == -1) {
+        printf("Conta não encontrada.\n");
+        return;
+    }
+
     FILE *fp = fopen("contas.txt", "r");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
@@ -381,7 +395,7 @@ void removeConta(usuarios* user, int indice) {
     }
     free(linhas);
 
-    usuarios vazio = {"", 0, 0, 0, 0};
+    usuarios vazio = {"", "", 0, 0, 0};
     user[indice] = vazio;
 
     printf("Conta removida com sucesso!\n");
