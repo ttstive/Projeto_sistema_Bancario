@@ -63,7 +63,7 @@ int main() {
 
             case 5:
              
-               extrato(&user[indice], totalUsers);
+               extrato(&user[indice], user, totalUsers);
 
                break;
 
