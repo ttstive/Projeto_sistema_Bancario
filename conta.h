@@ -71,12 +71,19 @@ long long gerarNumeroConta(char* cpf, int idade) {
     return cpf_as_number + idade - 17; // Fórmula ajustada para gerar o número da conta
 }
 
-void criaConta(usuarios* user) {
+void criaConta(usuarios* user, int* totalUsers) {
+    if (user == NULL) {
+    printf("Usuário inválido.\n");
+    return;
+    }
+
     FILE *fp = fopen("contas.txt", "a");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
     }
+
+    user->saldo = 0.0;
 
     printf("Insira seu nome: ");
     scanf(" %s", user->nome);
