@@ -27,17 +27,12 @@ int main() {
         getchar(); // Limpa o buffer de entrada
         switch (opcoes) {
             case 1:
-                /*for(int i = 0; i < MAX_USUARIOS; i++) {
-                    printf("\nCriando conta para o usuário: %d\n", i++);
-                    criaConta(&user[i+1]);
-                }
-                break;*/
-
-                  if (contadorContas <= 2) {
+                if (contadorContas <= 2) {
                     printf("\nCriando conta para o usuário: %d\n", contadorContas + 1);
-                    criaConta(&user[contadorContas]);
+                    criaConta(&user[contadorContas], totalUsers);
                     contadorContas++;
-                } else {
+                } 
+                else {
                     printf("Limite de criação de contas atingido.\n");
                 }
                 break;
@@ -75,7 +70,7 @@ int main() {
 
             case 7:
 
-                editarInformacoes(user, user, totalUsers);
+                editarInformacoes(&user[indice], user, totalUsers);
 
                 break;
 
