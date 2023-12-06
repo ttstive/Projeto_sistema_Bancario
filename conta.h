@@ -345,11 +345,16 @@ void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers){
     fclose(fp);
 }
 
-void removeConta(usuarios* user, long long int numeroConta) {
+void removeConta(usuarios* user) {
+    long long int num_conta_remover;
+    printf("Digite o número da conta que deseja remover: ");
+    scanf("%lld", &num_conta_remover);
+    getchar(); 
+
     int indice = -1;
 
     for (int i = 0; i < MAX_USUARIOS; i++) {
-        if (user[i].numeroConta == numeroConta) {
+        if (user[i].numeroConta == num_conta_remover) {
             indice = i;
             break;
         }
