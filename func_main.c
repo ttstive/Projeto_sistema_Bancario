@@ -66,14 +66,13 @@ int main() {
         break;
 
             case 6:
-                printf("Digite o índice do usuário cuja conta você deseja remover: ");
-                scanf("%d", &indice);
-                getchar(); // Limpa o buffer de entrada
-                if (indice >= 0 && indice < MAX_USUARIOS) {
-                    removeConta(user, indice);
-                } else {
-                    printf("Índice de usuário inválido.\n");
-                }
+                long long int num_conta_remover;
+                printf("Digite o número da conta que deseja remover: ");
+                scanf("%lld", &num_conta_remover);
+                getchar(); 
+
+                removeConta(user, num_conta_remover);
+
                 break;
 
             case 7:
