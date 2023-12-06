@@ -7,7 +7,9 @@ int main() {
     int opcoes;
     usuarios user[MAX_USUARIOS];
     int indice;
-    int totalUsers = 0;
+    int totalUsers = 2;
+    int contadorContas =0;
+    
 
     do {
         printf("Ola, bem vindo ao nosso sistema bancário.\n");
@@ -25,9 +27,18 @@ int main() {
         getchar(); // Limpa o buffer de entrada
         switch (opcoes) {
             case 1:
-                for(int i = 0; i < MAX_USUARIOS; i++) {
-                    printf("\nCriando conta para o usuário: %d\n", i+1);
-                    criaConta(&user[i]);
+                /*for(int i = 0; i < MAX_USUARIOS; i++) {
+                    printf("\nCriando conta para o usuário: %d\n", i++);
+                    criaConta(&user[i+1]);
+                }
+                break;*/
+
+                  if (contadorContas <= 2) {
+                    printf("\nCriando conta para o usuário: %d\n", contadorContas + 1);
+                    criaConta(&user[contadorContas]);
+                    contadorContas++;
+                } else {
+                    printf("Limite de criação de contas atingido.\n");
                 }
                 break;
 
@@ -51,15 +62,8 @@ int main() {
                 break;
 
             case 5:
-                printf("Digite o índice do usuário que você deseja ver o extrato: ");
-                scanf("%d", &indice);
-                if (indice >=0 && indice < MAX_USUARIOS)
-                {
-                    extrato(&user[indice]);
-                } else{
-                    printf("índice de usuário inválido.\n");
-                }
-                break;
+             extrato(&user[indice], totalUsers);
+        break;
 
             case 6:
                 printf("Digite o índice do usuário cuja conta você deseja remover: ");
