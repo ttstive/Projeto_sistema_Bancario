@@ -28,7 +28,7 @@ Funcionalidades implementadas:
 Para compilar e executar o sistema bancário, siga os passos abaixo:
 
 1. Abra o terminal na pasta do projeto.
-2. Compile os arquivos usando um compilador C (por exemplo, GCC):
+2. Compile os arquivos usando um compilador C (por exemplo, C++ ou Ccompiler):
     ```
     gcc main.c -o sistema_bancario
     ```
@@ -37,7 +37,7 @@ Para compilar e executar o sistema bancário, siga os passos abaixo:
     ./sistema_bancario
     ```
 
-O sistema exibirá um menu interativo com opções para interagir com as contas bancárias.
+O sistema exibirá um menu interpretativo com opções para interagir com as contas bancárias.
 
 ## Contribuições
 
@@ -58,10 +58,7 @@ Contribuições para melhorias, correções de bugs ou adição de novas funcion
     ```
 5. Abra um pull request descrevendo suas alterações.
 
-## Autor
+## Autores
 
-[Seu Nome] - [Seu Email]
+[Estevão Lins, Matheus, Rafael Dornelas, Caio Caetano, Filipe] [https://www.linkedin.com/in/estevaolins/]
 
-## Licença
-
-Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT) - veja o arquivo `LICENSE` para detalhes.
