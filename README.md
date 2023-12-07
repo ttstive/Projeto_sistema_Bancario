@@ -38,6 +38,8 @@ Para compilar e executar o sistema bancário, siga os passos abaixo:
     ```
 
 O sistema exibirá um menu interpretativo com opções para interagir com as contas bancárias.
+Os testes devem ser feitos em sequência, visto que vai gerar erro caso não sejam feitos na sequência
+Lembrar de Limpar o arquivo txt, caso contrario não vai funcionar
 
 ## Contribuições
 
