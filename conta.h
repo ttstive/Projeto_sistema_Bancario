@@ -32,7 +32,7 @@ int validaCPF(const char* cpf) {
         }
     }
 
-    // Calcula o primeiro dígito verificador
+    // Calcula o primeiro digito verificador
     for (i = 0, j = 10; i < 9; i++, j--)
         digito1 += cpf_array[i] * j;
     digito1 %= 11;
@@ -41,7 +41,7 @@ int validaCPF(const char* cpf) {
     else
         digito1 = 11 - digito1;
 
-    // Calcula o segundo dígito verificador
+    // Calcula o segundo di­gito verificador
     for (i = 0, j = 11; i < 10; i++, j--)
         digito2 += cpf_array[i] * j;
     digito2 %= 11;
@@ -50,7 +50,7 @@ int validaCPF(const char* cpf) {
     else
         digito2 = 11 - digito2;
 
-    // Verifica se os dígitos verificadores são iguais aos informados
+    // Verifica se os digitos verificadores são iguais aos informados
     if (cpf_array[9] == digito1 && cpf_array[10] == digito2)
         return 0;
     else
@@ -58,7 +58,7 @@ int validaCPF(const char* cpf) {
 } 
 
 long long gerarNumeroConta(char* cpf, int idade) {
-    char cpf_sem_pontos[12]; // Armazena o CPF sem pontos ou traço
+    char cpf_sem_pontos[12]; // Armazena o CPF sem pontos ou traÃ§o
     int j = 0;
     for (int i = 0; i < 15; i++) {
         if (cpf[i] != '.' && cpf[i] != '-') {
@@ -68,7 +68,7 @@ long long gerarNumeroConta(char* cpf, int idade) {
     }
     cpf_sem_pontos[j] = '\0'; // Finaliza a string
     long long cpf_as_number = atoll(cpf_sem_pontos); // Converte o CPF para long long
-    return cpf_as_number + idade - 17; // Fórmula ajustada para gerar o número da conta
+    return cpf_as_number + idade - 17; // Formula ajustada para gerar o número da conta
 }
 
 void criaConta(usuarios* user, int* totalUsers) {
@@ -137,7 +137,7 @@ void depositaValor(usuarios* user, usuarios* allUsers, int totalUsers) {
         return;
     }
 
-    printf("Informe o valor do deposito: ");
+    printf("Informe o valor do Depósito: ");
     scanf("%f", &deposito);
 
     allUsers[deposito_index].saldo += deposito;
@@ -151,7 +151,7 @@ void depositaValor(usuarios* user, usuarios* allUsers, int totalUsers) {
         return;
     }
 
-    fprintf(fp, "Nome :%s , Depósito: %.2f, Saldo: %.2f, Conta: %lld\n", allUsers[deposito_index].nome, deposito, allUsers[deposito_index].saldo, allUsers[deposito_index].numeroConta);
+    fprintf(fp, "Nome: %s , Deposito: %.2f, Saldo: %.2f, Conta: %lld\n", allUsers[deposito_index].nome, deposito, allUsers[deposito_index].saldo, allUsers[deposito_index].numeroConta);
     fclose(fp);
 }
 
@@ -200,7 +200,7 @@ void sacaValor(usuarios* user, usuarios* allUsers, int totalUsers){
         return;
     }
 
-    fprintf(fp, "Nome :%s , Saque: %.2f, Saldo: %.2f, Conta: %lld \n", allUsers[saque_index].nome, saque, allUsers[saque_index].saldo, allUsers[saque_index].numeroConta);
+    fprintf(fp, "Nome: %s , Saque: %.2f, Saldo: %.2f, Conta: %lld \n", allUsers[saque_index].nome, saque, allUsers[saque_index].saldo, allUsers[saque_index].numeroConta);
     fclose(fp);
 }
 
@@ -231,13 +231,14 @@ void editarInformacoes(usuarios* user, usuarios* allUsers, int totalUsers, int c
     }
 
     printf("Digite o novo nome do titular: ");
-    scanf(" %[^\n]", allUsers[edita_index].nome);  // Use scanf para ler até a nova linha
+    scanf(" %[^\n]", allUsers[edita_index].nome);
     getchar();  // Limpar o caractere de nova linha
 
     printf("Digite a nova idade: ");
     scanf("%d", &(allUsers[edita_index].idade));
+    getchar();
 
-    if (allUsers[edita_index].idade < 17 || user->idade > 100) {
+    if (allUsers[edita_index].idade < 17 || allUsers[edita_index].idade > 100) {
         printf("Você não tem permissão para criar uma conta remotamente. Por favor, vá em uma de nossas agências acompanhado de seu responsável e você será atendido.\n");
         fclose(fp);
         return;
@@ -247,13 +248,14 @@ void editarInformacoes(usuarios* user, usuarios* allUsers, int totalUsers, int c
     char new_cpf[15];
     printf("Digite o novo CPF: ");
     scanf("%s", new_cpf);
+    
 
     if (strlen(new_cpf) != 14 || new_cpf[3] != '.' || new_cpf[7] != '.' || new_cpf[11] != '-') {
         printf("Formato de CPF inválido. Insira o CPF no formato correto (000.000.000-00).\n");
         fclose(fp);
         return;
     }
-    // Se o CPF for válido, atualiza o CPF
+    // Se o CPF for vÃ¡lido, atualiza o CPF
     strcpy(allUsers[edita_index].cpf, new_cpf);
 
     printf("Informações do titular da conta atualizadas com sucesso!\n");
@@ -350,7 +352,7 @@ void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers){
     allUsers[remetente_index].saldo -= transfere;
     allUsers[destinatario_index].saldo += transfere;
 
-    printf("Transferência de R$ %.2f realizada com sucesso para %s.\n", transfere, allUsers[destinatario_index].nome);
+    printf("transferência de R$ %.2f realizada com sucesso para %s.\n", transfere, allUsers[destinatario_index].nome);
 
     FILE *fp = fopen("contas.txt", "a");
     if (fp == NULL) {
@@ -358,7 +360,7 @@ void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers){
         return;
     }
 
-    fprintf(fp, "Nome: %s, Transferência: %.2f, Conta Origem: %lld, Conta Destino: %lld\n", allUsers[remetente_index].nome, transfere, num_conta_remetente, num_conta_destino);
+    fprintf(fp, "Nome: %s, transferencia: %.2f, Conta Origem: %lld, Conta Destino: %lld\n", allUsers[remetente_index].nome, transfere, num_conta_remetente, num_conta_destino);
     fclose(fp);
 }
 
@@ -393,9 +395,6 @@ void removeConta(usuarios* user, int* contadorContas) {
         return;
     }
 
-    // Se você está lendo as linhas do arquivo, mas não está usando essas informações, isso pode ser removido.
-    // Por agora, vamos ignorar a leitura do arquivo.
-
     fclose(fp);
 
     fp = fopen("contas.txt", "w");
@@ -412,17 +411,12 @@ void removeConta(usuarios* user, int* contadorContas) {
     }
     fclose(fp);
 
-    // Limpeza do usuário removido
     usuarios vazio = {"", "", 0, 0, 0};
     user[indice] = vazio;
 
     printf("Conta removida com sucesso!\n");
     (*contadorContas)--; // Decrementa o contador de contas
 
-    // Aqui você pode querer deslocar os usuários para ocupar o espaço livre
-    // ou implementar uma lógica que mantenha apenas usuários válidos no início do array.
-
-    // Considere reorganizar os dados para evitar lacunas vazias no vetor 'usuarios'.
 }
 
 
@@ -448,7 +442,7 @@ void extrato(usuarios* user, usuarios* allUsers, int totalUsers){
         return;
     }
 
-    printf("Número da Conta: %lld\n", allUsers[user_index].numeroConta);
+    printf("número da Conta: %lld\n", allUsers[user_index].numeroConta);
     printf("Nome do Titular: %s\n", allUsers[user_index].nome);
     printf("Idade: %d\n", allUsers[user_index].idade);
     printf("Cpf: %s\n", allUsers[user_index].cpf);
