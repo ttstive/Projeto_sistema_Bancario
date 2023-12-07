@@ -86,7 +86,7 @@ void criaConta(usuarios* user, int* totalUsers) {
     user->saldo = 0.0;
 
     printf("Insira seu nome: ");
-    scanf(" %s", user->nome);
+    scanf(" %[^\n]", user->nome);
 
     printf("Digite sua idade: ");
     scanf("%d", &(user->idade));
@@ -94,6 +94,7 @@ void criaConta(usuarios* user, int* totalUsers) {
     if (user->idade < 17 || user->idade > 100) {
         printf("Você não tem permissão para criar uma conta remotamente. Por favor, vá em uma de nossas agências acompanhado de seu responsável e você será atendido.\n");
         fclose(fp);
+
         return;
     }
 
@@ -204,7 +205,13 @@ void sacaValor(usuarios* user, usuarios* allUsers, int totalUsers){
 }
 
 
-void editarInformacoes(usuarios* user, usuarios* allUsers, int totalUsers) {
+void editarInformacoes(usuarios* user, usuarios* allUsers, int totalUsers, int contadorContas) {
+    FILE *fp = fopen("contas.txt", "r+");
+    if (fp == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
     long long num_conta_edita;
     printf("Informe o número da conta: ");
     scanf("%lld", &num_conta_edita);
@@ -230,29 +237,34 @@ void editarInformacoes(usuarios* user, usuarios* allUsers, int totalUsers) {
     printf("Digite a nova idade: ");
     scanf("%d", &(allUsers[edita_index].idade));
 
+    if (allUsers[edita_index].idade < 17 || user->idade > 100) {
+        printf("Você não tem permissão para criar uma conta remotamente. Por favor, vá em uma de nossas agências acompanhado de seu responsável e você será atendido.\n");
+        fclose(fp);
+        return;
+
+    }
+
     char new_cpf[15];
     printf("Digite o novo CPF: ");
     scanf("%s", new_cpf);
 
+    if (strlen(new_cpf) != 14 || new_cpf[3] != '.' || new_cpf[7] != '.' || new_cpf[11] != '-') {
+        printf("Formato de CPF inválido. Insira o CPF no formato correto (000.000.000-00).\n");
+        fclose(fp);
+        return;
+    }
     // Se o CPF for válido, atualiza o CPF
     strcpy(allUsers[edita_index].cpf, new_cpf);
 
     printf("Informações do titular da conta atualizadas com sucesso!\n");
 
-    // Restante do código para atualizar o arquivo...
-    FILE *fp = fopen("contas.txt", "r+");
-    if (fp == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-        return;
-    }
-
     char **linhas = malloc(MAX_USUARIOS *sizeof(char * ));
     for(int i = 0; i < MAX_USUARIOS; i++) {
-        linhas[i] = malloc(100 *sizeof(char));
+        linhas[i] = malloc(150 *sizeof(char));
     }
 
     int i = 0;
-    while (fgets(linhas[i], 100, fp) != NULL && i < MAX_USUARIOS) {
+    while (fgets(linhas[i], 150, fp) != NULL && i < MAX_USUARIOS) {
         i++;
     }
     fclose(fp);
@@ -263,14 +275,12 @@ void editarInformacoes(usuarios* user, usuarios* allUsers, int totalUsers) {
         return;
     }
 
-    for (int j = 0; j < MAX_USUARIOS; j++) {
+    for (int j = 0; j < contadorContas; j++) {
         if (j == edita_index) {
             fprintf(fp, "Nome: %s, Idade: %d, CPF: %s, Numero da Conta: %lld, Saldo: %.2f\n", allUsers[edita_index].nome, allUsers[edita_index].idade, allUsers[edita_index].cpf, allUsers[edita_index].numeroConta, allUsers[edita_index].saldo);
         } else {
-            // Check if the line ends with a newline character
             int len = strlen(linhas[j]);
             if (linhas[j][len - 1] != '\n') {
-                // If not, add a newline character
                 linhas[j][len] = '\n';
                 linhas[j][len + 1] = '\0';
             }
@@ -352,8 +362,13 @@ void Transferencia1(usuarios* user, usuarios* allUsers, int totalUsers){
     fclose(fp);
 }
 
-void removeConta(usuarios* user) {
-    long long int num_conta_remover;
+void removeConta(usuarios* user, int* contadorContas) {
+    if (user == NULL || contadorContas == NULL) {
+        printf("Usuário inválido.\n");
+        return;
+    }
+
+    long long num_conta_remover;
     printf("Digite o número da conta que deseja remover: ");
     scanf("%lld", &num_conta_remover);
     getchar(); 
@@ -378,15 +393,9 @@ void removeConta(usuarios* user) {
         return;
     }
 
-    char **linhas = malloc(MAX_USUARIOS * sizeof(char *));
-    for(int i = 0; i < MAX_USUARIOS; i++) {
-        linhas[i] = malloc(100 * sizeof(char));
-    }
+    // Se você está lendo as linhas do arquivo, mas não está usando essas informações, isso pode ser removido.
+    // Por agora, vamos ignorar a leitura do arquivo.
 
-    int i = 0;
-    while (fgets(linhas[i], 100, fp) != NULL && i < MAX_USUARIOS) {
-        i++;
-    }
     fclose(fp);
 
     fp = fopen("contas.txt", "w");
@@ -397,21 +406,25 @@ void removeConta(usuarios* user) {
 
     for (int j = 0; j < MAX_USUARIOS; j++) {
         if (j != indice && strcmp(user[j].nome, "") != 0) {
-            fprintf(fp, "Nome: %s, Idade: %d, CPF: %s, Numero da Conta: %lld, Saldo: %.2f\n", user[j].nome, user[j].idade, user[j].cpf, user[j].numeroConta, user[j].saldo);
+            fprintf(fp, "Nome: %s, Idade: %d, CPF: %s, Numero da Conta: %lld, Saldo: %.2f\n",
+                    user[j].nome, user[j].idade, user[j].cpf, user[j].numeroConta, user[j].saldo);
         }
     }
     fclose(fp);
 
-    for(int i = 0; i < MAX_USUARIOS; i++) {
-        free(linhas[i]);
-    }
-    free(linhas);
-
+    // Limpeza do usuário removido
     usuarios vazio = {"", "", 0, 0, 0};
     user[indice] = vazio;
 
     printf("Conta removida com sucesso!\n");
+    (*contadorContas)--; // Decrementa o contador de contas
+
+    // Aqui você pode querer deslocar os usuários para ocupar o espaço livre
+    // ou implementar uma lógica que mantenha apenas usuários válidos no início do array.
+
+    // Considere reorganizar os dados para evitar lacunas vazias no vetor 'usuarios'.
 }
+
 
 void extrato(usuarios* user, usuarios* allUsers, int totalUsers){
     if (user == NULL) {
