@@ -11,15 +11,15 @@ int main() {
     int contadorContas = 0;
     
     do {
-        printf("Ola, bem vindo ao nosso sistema bancário.\n");
-        printf("Temos as opcoes abaixo disponiveis:\n");
+        printf("Olá, bem vindo ao nosso sistema bancário.\n");
+        printf("Temos as opções abaixo disponíveis:\n");
         printf("1 : criar conta\n");
         printf("2 : depositar\n");
         printf("3 : sacar\n");
         printf("4 : transferir para outra conta\n");
         printf("5 : mostrar extrato\n");
         printf("6 : remover conta\n");
-        printf("7 : editar informacoes conta\n");
+        printf("7 : editar informações conta\n");
         printf("8 : sair\n");
 
         scanf("%d", &opcoes);
