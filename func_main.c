@@ -8,9 +8,8 @@ int main() {
     usuarios user[MAX_USUARIOS];
     int indice;
     int totalUsers = 2;
-    int contadorContas =0;
+    int contadorContas = 0;
     
-
     do {
         printf("Ola, bem vindo ao nosso sistema bancário.\n");
         printf("Temos as opcoes abaixo disponiveis:\n");
@@ -27,14 +26,21 @@ int main() {
         getchar(); // Limpa o buffer de entrada
         switch (opcoes) {
             case 1:
-                if (contadorContas <= 2) {
-                    printf("\nCriando conta para o usuário: %d\n", contadorContas + 1);
+                if (contadorContas < 2) {
+                    printf("\nCriando conta para o usuário: %d\n", contadorContas+1);
+
                     criaConta(&user[contadorContas], totalUsers);
-                    contadorContas++;
+                    if (user[contadorContas].idade >= 17 && user[contadorContas].idade <= 100) {
+                        contadorContas ++;
+                    }
+                    
+
+                    
                 } 
                 else {
                     printf("Limite de criação de contas atingido.\n");
                 }
+
                 break;
 
             case 2:
@@ -64,13 +70,14 @@ int main() {
 
             case 6:
             
-               removeConta(user);
-            
-               break;
+                removeConta(user, &contadorContas);
+                contadorContas-1;
+                
+                break;
 
             case 7:
 
-                editarInformacoes(&user[indice], user, totalUsers);
+                editarInformacoes(&user[indice], user, totalUsers, contadorContas);
 
                 break;
 
