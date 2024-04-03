@@ -62,5 +62,6 @@ Contribuições para melhorias, correções de bugs ou adição de novas funcion
 
 ## Autores
 
-[Estevão Lins, Mateus Amorim, Rafael Dornelas, Caio Caetano, Filipe] [https://www.linkedin.com/in/estevaolins/]
+[Estevão Lins, Mateus Amorim, Rafael Dornelas, Caio Caetano, Felipe Alves
+[https://www.linkedin.com/in/estevaolins/]
 
